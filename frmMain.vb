@@ -2,6 +2,8 @@
 Imports System.Security.Cryptography
 Imports System.Text
 
+#Disable Warning IDE1006 ' Styles d'affectation de noms
+
 Public Class frmMain
     Private Sub pbxStart_Click(sender As Object, e As EventArgs) Handles pbxStart.Click
         'Check if info is entered.
@@ -24,6 +26,28 @@ Public Class frmMain
         End
     End Sub
 
+    Private Sub pbxRegister_Click(sender As Object, e As EventArgs) Handles pbxRegister.Click
+    End Sub
+
+    Private Sub pbxRegister_MouseLeave(sender As Object, e As EventArgs) Handles pbxRegister.MouseLeave
+        pbxRegister.Image = TERA_Launcher.My.Resources.Resources.register_normal
+    End Sub
+    Private Sub pbxRegister_MouseDown(sender As Object, e As EventArgs) Handles pbxRegister.MouseDown
+        pbxRegister.Image = TERA_Launcher.My.Resources.Resources.register_active
+    End Sub
+    Private Sub pbxRegister_MouseMouseUp(sender As Object, e As EventArgs) Handles pbxRegister.MouseUp
+        pbxRegister.Image = TERA_Launcher.My.Resources.Resources.register_normal
+        Dim temp = Me.Cursor
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            Process.Start("http://51.210.41.122/register.php")
+        Finally
+            Me.Cursor = temp
+        End Try
+    End Sub
+    Private Sub pbxRegister_MouseEnter(sender As Object, e As EventArgs) Handles pbxRegister.MouseEnter
+        pbxRegister.Image = TERA_Launcher.My.Resources.Resources.register_hover
+    End Sub
     Private Sub pbxStart_MouseEnter(sender As Object, e As EventArgs) Handles pbxStart.MouseEnter
         pbxStart.Image = TERA_Launcher.My.Resources.Resources.start_hover
     End Sub
@@ -50,4 +74,25 @@ Public Class frmMain
         Next
         Return sb.ToString()
     End Function
+
+    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub lblAccount_Click(sender As Object, e As EventArgs) Handles lblAccount.Click
+
+    End Sub
+
+    Private Sub txtAccount_TextChanged(sender As Object, e As EventArgs) Handles txtAccount.TextChanged
+
+    End Sub
+
+    Private Sub lblPassword_Click(sender As Object, e As EventArgs) Handles lblPassword.Click
+
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+
+    End Sub
 End Class
+#Enable Warning IDE1006 ' Styles d'affectation de noms

@@ -130,4 +130,13 @@
   <data name="start_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\start_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="register_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\register_active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="register_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\register_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="register_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\register_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

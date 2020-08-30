@@ -1,0 +1,12 @@
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.vbprojAssemblyReference.cache
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA_Launcher.frmMain.resources
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA_Launcher.Resources.resources
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.vbproj.GenerateResource.cache
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.vbproj.CoreCompileInputs.cache
+C:\laragon\www\Tera-Launcher\bin\Debug\TERA-Launcher.exe.config
+C:\laragon\www\Tera-Launcher\bin\Debug\TERA-Launcher.exe
+C:\laragon\www\Tera-Launcher\bin\Debug\TERA-Launcher.pdb
+C:\laragon\www\Tera-Launcher\bin\Debug\TERA-Launcher.xml
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.exe
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.xml
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.pdb

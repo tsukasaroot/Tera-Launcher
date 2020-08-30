@@ -28,14 +28,16 @@ Partial Class frmMain
         Me.txtAccount = New System.Windows.Forms.TextBox()
         Me.lblPassword = New System.Windows.Forms.Label()
         Me.lblAccount = New System.Windows.Forms.Label()
+        Me.pbxRegister = New System.Windows.Forms.PictureBox()
         CType(Me.pbxStart, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbxRegister, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pbxStart
         '
         Me.pbxStart.BackColor = System.Drawing.Color.Transparent
         Me.pbxStart.Image = Global.TERA_Launcher.My.Resources.Resources.start_normal
-        Me.pbxStart.Location = New System.Drawing.Point(247, 264)
+        Me.pbxStart.Location = New System.Drawing.Point(378, 261)
         Me.pbxStart.Name = "pbxStart"
         Me.pbxStart.Size = New System.Drawing.Size(257, 107)
         Me.pbxStart.TabIndex = 12
@@ -90,6 +92,16 @@ Partial Class frmMain
         Me.lblAccount.Text = "Account"
         Me.lblAccount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'pbxRegister
+        '
+        Me.pbxRegister.BackColor = System.Drawing.Color.Transparent
+        Me.pbxRegister.Image = Global.TERA_Launcher.My.Resources.Resources.register_normal
+        Me.pbxRegister.Location = New System.Drawing.Point(123, 261)
+        Me.pbxRegister.Name = "pbxRegister"
+        Me.pbxRegister.Size = New System.Drawing.Size(257, 107)
+        Me.pbxRegister.TabIndex = 13
+        Me.pbxRegister.TabStop = False
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -97,6 +109,7 @@ Partial Class frmMain
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.pbxRegister)
         Me.Controls.Add(Me.pbxStart)
         Me.Controls.Add(Me.txtPassword)
         Me.Controls.Add(Me.txtAccount)
@@ -109,6 +122,7 @@ Partial Class frmMain
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "TERA-Launcher"
         CType(Me.pbxStart, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbxRegister, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -118,4 +132,5 @@ Partial Class frmMain
     Private WithEvents txtAccount As TextBox
     Private WithEvents lblPassword As Label
     Private WithEvents lblAccount As Label
+    Private WithEvents pbxRegister As PictureBox
 End Class
