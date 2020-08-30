@@ -7,7 +7,7 @@ You can download the client from https://mega.nz/#F!RJdmgAaQ!1lQJdA0irA4vu6gEw2x
 
 Use TERA-Launcher.exe to enter your account and password and click start to launch the client.
 
-
+TODO: Adding a register button
 
 * HTTP location can be localy hosted (127.0.0.1), there is no need to host it over the internet.
   An easy solution for hosting your own local Apache server is using XAMPP.
