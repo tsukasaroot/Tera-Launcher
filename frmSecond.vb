@@ -1,7 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
-Imports System.Security.Cryptography
-Imports System.Text
+Imports System.ComponentModel
 
 #Disable Warning IDE1006 ' Styles d'affectation de noms
 
@@ -10,6 +9,7 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
+    Private MAX_FILES As Integer = 29
 
 
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -66,6 +66,7 @@ Public Class frmSecond
         pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_active
     End Sub
 
+    ' Start the download
     Private Sub pbxInstall_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxInstall.MouseUp
         pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_normal
         pbxManageDownload()
@@ -73,19 +74,46 @@ Public Class frmSecond
         pbxCancel.Visible = True
     End Sub
 
+    ' Display the progression
     Private Sub pbxProgressBar(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs) Handles WC.DownloadProgressChanged
         ProgressBar.Value = e.ProgressPercentage
-        lblProgression.Text = e.ProgressPercentage.ToString + "%"
+        lblProgression.Text = e.ProgressPercentage.ToString + "% " + Progression.ToString + "/" + MAX_FILES.ToString
     End Sub
 
-    Private Sub pbxDownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs) Handles WC.DownloadFileCompleted
-        ProgressBar.Value = 0
-        Progression += 1
-        pbxManageDownload()
+    ' Do actions when download complete
+    Private Sub pbxDownloadCompleted(ByVal sender As Object, ByVal e As AsyncCompletedEventArgs) Handles WC.DownloadFileCompleted
+        If Progression.Equals(MAX_FILES) Then
+            pbxClearAll()
+        Else
+            ProgressBar.Value = 0
+            Progression += 1
+            pbxManageDownload()
+        End If
     End Sub
 
+    Private Sub pbxClearAll()
+        pbxPlay.Visible = True
+        pbxInstall.Visible = False
+        pbxCancel.Visible = False
+        ProgressBar.Visible = False
+        lblProgression.Visible = False
+        WC.CancelAsync()
+        WC.Dispose()
+        MsgBox("Download completed", MsgBoxStyle.OkOnly, Me.Text)
+    End Sub
+
+    ' Manage the files download
     Private Sub pbxManageDownload()
-        WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/TERA%20NAEU-1732.part" + Progression.ToString + ".rar"), "./part" + Progression.ToString + ".rar")
+        If Not File.Exists("part" + Progression.ToString + ".rar") Then
+            WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/TERA%20NAEU-1732.part" + Progression.ToString + ".rar"), "./part" + Progression.ToString + ".rar")
+        ElseIf Not Progression.Equals(MAX_FILES) Then
+            WC.CancelAsync()
+            WC.Dispose()
+            Progression += 1
+            pbxManageDownload()
+        Else
+            pbxClearAll()
+        End If
     End Sub
 
     ' Cancel download
