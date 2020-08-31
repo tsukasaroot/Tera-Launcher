@@ -10,3 +10,4 @@ C:\laragon\www\Tera-Launcher\bin\Debug\TERA-Launcher.xml
 C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.exe
 C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.xml
 C:\laragon\www\Tera-Launcher\obj\Debug\TERA-Launcher.pdb
+C:\laragon\www\Tera-Launcher\obj\Debug\TERA_Launcher.frmSecond.resources

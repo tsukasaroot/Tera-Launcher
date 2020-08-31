@@ -6,6 +6,9 @@ Imports System.Text
 #Disable Warning IDE1006 ' Styles d'affectation de noms
 
 Public Class frmMain
+    Public PlayerPassword As String
+    Public PlayerName As String
+
     Private Sub pbxStart_Click(sender As Object, e As EventArgs) Handles pbxStart.Click
         'Check if info is entered.
         If txtAccount.Text.Equals("") Then
@@ -17,19 +20,11 @@ Public Class frmMain
             Exit Sub
         End If
         If PlayerExist(txtAccount.Text, txtPassword.Text) Then
-            MsgBox("Ok", MsgBoxStyle.OkOnly, Me.Text)
+            frmSecond.Show()
+            Me.Close()
         Else
             MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
         End If
-        'Check if tera.exe file exists.
-        'If Not File.Exists("tera.exe") Then
-        '    MsgBox("Could not find tera.exe", MsgBoxStyle.OkOnly, Me.Text)
-        '    Exit Sub
-        'End If
-        ''Start client with parameters. the 2nd 1 correspond to an immediate login into the first server
-        'Process.Start("tera.exe", "1 " + getMD5(txtPassword.Text) + " 1 1 " + txtAccount.Text + " en")
-        ''Close launcher.
-        'End
     End Sub
 
     Private Function PlayerExist(ByVal PlayerName As String, ByVal PlayerPassword As String) As Boolean
@@ -81,7 +76,7 @@ Public Class frmMain
         pbxStart.Image = TERA_Launcher.My.Resources.Resources.start_normal
     End Sub
 
-    Private Function getMD5(ByVal source As String) As String
+    Public Function getMD5(ByVal source As String) As String
         Dim Bytes() As Byte
         Dim sb As New StringBuilder()
         Bytes = Encoding.Default.GetBytes(source)
