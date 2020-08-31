@@ -9,14 +9,19 @@ Public Class frmSecond
     Public PlayerPassword As String = frmMain.PlayerPassword
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
+    Private Progression As Integer = 1
+
 
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pbxPlay.Visible = False
         pbxInstall.Visible = False
         pbxCancel.Visible = False
+        lblProgression.Visible = False
+        lblUser.Text = PlayerName
 
         If Not File.Exists("tera.exe") Then
             pbxInstall.Visible = True
+            lblProgression.Visible = True
         Else
             pbxPlay.Visible = True
         End If
@@ -63,18 +68,24 @@ Public Class frmSecond
 
     Private Sub pbxInstall_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxInstall.MouseUp
         pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_normal
-        WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/TERA%20NAEU-1732.part01.rar"),
-                                         "./part01.rar")
+        pbxManageDownload()
         pbxInstall.Visible = False
         pbxCancel.Visible = True
     End Sub
 
     Private Sub pbxProgressBar(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs) Handles WC.DownloadProgressChanged
         ProgressBar.Value = e.ProgressPercentage
+        lblProgression.Text = e.ProgressPercentage.ToString + "%"
+    End Sub
+
+    Private Sub pbxDownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs) Handles WC.DownloadFileCompleted
+        ProgressBar.Value = 0
+        Progression += 1
+        pbxManageDownload()
     End Sub
 
     Private Sub pbxManageDownload()
-
+        WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/TERA%20NAEU-1732.part" + Progression.ToString + ".rar"), "./part" + Progression.ToString + ".rar")
     End Sub
 
     ' Cancel download
@@ -99,6 +110,7 @@ Public Class frmSecond
         pbxInstall.Visible = True
         ProgressBar.Value = 0
         pbxCancel.Visible = False
+        lblProgression.Text = "0%"
     End Sub
 End Class
 

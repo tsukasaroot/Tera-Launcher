@@ -1,2 +1,5 @@
 bin/*
 *.rar
+tera-Launcher.*
+obj/Debug/TERA-Launcher.pdb
+obj/Debug/TERA-Launcher.exe

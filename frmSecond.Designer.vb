@@ -27,6 +27,8 @@ Partial Class frmSecond
         Me.pbxInstall = New System.Windows.Forms.PictureBox()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.pbxCancel = New System.Windows.Forms.PictureBox()
+        Me.lblProgression = New System.Windows.Forms.Label()
+        Me.lblUser = New System.Windows.Forms.Label()
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -69,6 +71,32 @@ Partial Class frmSecond
         Me.pbxCancel.TabIndex = 16
         Me.pbxCancel.TabStop = False
         '
+        'lblProgression
+        '
+        Me.lblProgression.AutoSize = True
+        Me.lblProgression.BackColor = System.Drawing.Color.Transparent
+        Me.lblProgression.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProgression.ForeColor = System.Drawing.Color.Silver
+        Me.lblProgression.Location = New System.Drawing.Point(209, 223)
+        Me.lblProgression.Name = "lblProgression"
+        Me.lblProgression.Size = New System.Drawing.Size(34, 19)
+        Me.lblProgression.TabIndex = 17
+        Me.lblProgression.Text = "0%"
+        Me.lblProgression.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblUser
+        '
+        Me.lblUser.AutoSize = True
+        Me.lblUser.BackColor = System.Drawing.Color.Transparent
+        Me.lblUser.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUser.ForeColor = System.Drawing.Color.Silver
+        Me.lblUser.Location = New System.Drawing.Point(12, 22)
+        Me.lblUser.Name = "lblUser"
+        Me.lblUser.Size = New System.Drawing.Size(60, 25)
+        Me.lblUser.TabIndex = 18
+        Me.lblUser.Text = "User"
+        Me.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmSecond
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -76,6 +104,8 @@ Partial Class frmSecond
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.lblUser)
+        Me.Controls.Add(Me.lblProgression)
         Me.Controls.Add(Me.pbxCancel)
         Me.Controls.Add(Me.ProgressBar)
         Me.Controls.Add(Me.pbxInstall)
@@ -90,6 +120,7 @@ Partial Class frmSecond
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -97,4 +128,6 @@ Partial Class frmSecond
     Private WithEvents pbxInstall As PictureBox
     Friend WithEvents ProgressBar As ProgressBar
     Private WithEvents pbxCancel As PictureBox
+    Private WithEvents lblProgression As Label
+    Private WithEvents lblUser As Label
 End Class
