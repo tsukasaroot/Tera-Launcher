@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 Imports System.Security.Cryptography
 Imports System.Text
 
@@ -15,16 +16,32 @@ Public Class frmMain
             MsgBox("Please enter your password.", MsgBoxStyle.OkOnly, Me.Text)
             Exit Sub
         End If
-        'Check if tera.exe file exists.
-        If Not File.Exists("tera.exe") Then
-            MsgBox("Could not find tera.exe", MsgBoxStyle.OkOnly, Me.Text)
-            Exit Sub
+        If PlayerExist(txtAccount.Text, txtPassword.Text) Then
+            MsgBox("Ok", MsgBoxStyle.OkOnly, Me.Text)
+        Else
+            MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
         End If
-        'Start client with parameters.
-        Process.Start("tera.exe", "1 " + getMD5(txtPassword.Text) + " 0 1 " + txtAccount.Text + " en")
-        'Close launcher.
-        End
+        'Check if tera.exe file exists.
+        'If Not File.Exists("tera.exe") Then
+        '    MsgBox("Could not find tera.exe", MsgBoxStyle.OkOnly, Me.Text)
+        '    Exit Sub
+        'End If
+        ''Start client with parameters. the 2nd 1 correspond to an immediate login into the first server
+        'Process.Start("tera.exe", "1 " + getMD5(txtPassword.Text) + " 1 1 " + txtAccount.Text + " en")
+        ''Close launcher.
+        'End
     End Sub
+
+    Private Function PlayerExist(ByVal PlayerName As String, ByVal PlayerPassword As String) As Boolean
+        Return Boolean.Parse(GetWebPageText("http://51.210.41.122/auth.php?username=" + PlayerName + "&password=" + getMD5(PlayerPassword)))
+    End Function
+
+    Private Function GetWebPageText(ByVal url As String) As String
+        Dim Request As WebRequest = WebRequest.Create(url)
+        Request.Credentials = CredentialCache.DefaultCredentials
+        Return New StreamReader(Request.GetResponse().GetResponseStream()).ReadToEnd()
+    End Function
+
 
     Private Sub pbxRegister_Click(sender As Object, e As EventArgs) Handles pbxRegister.Click
     End Sub
