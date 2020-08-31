@@ -27,6 +27,21 @@ TERA-Launcher
   Recherche une ressource localisée de type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:TERA_Launcher.My.Resources.Resources.cancel_active">
+<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:TERA_Launcher.My.Resources.Resources.cancel_hover">
+<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:TERA_Launcher.My.Resources.Resources.cancel_normal">
+<summary>
+  Recherche une ressource localisée de type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:TERA_Launcher.My.Resources.Resources.install_active">
 <summary>
   Recherche une ressource localisée de type System.Drawing.Bitmap.

@@ -25,15 +25,18 @@ Partial Class frmSecond
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSecond))
         Me.pbxPlay = New System.Windows.Forms.PictureBox()
         Me.pbxInstall = New System.Windows.Forms.PictureBox()
+        Me.ProgressBar = New System.Windows.Forms.ProgressBar()
+        Me.pbxCancel = New System.Windows.Forms.PictureBox()
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pbxPlay
         '
         Me.pbxPlay.BackColor = System.Drawing.Color.Transparent
         Me.pbxPlay.Image = Global.TERA_Launcher.My.Resources.Resources.start_normal
-        Me.pbxPlay.Location = New System.Drawing.Point(244, 278)
+        Me.pbxPlay.Location = New System.Drawing.Point(115, 287)
         Me.pbxPlay.Name = "pbxPlay"
         Me.pbxPlay.Size = New System.Drawing.Size(257, 107)
         Me.pbxPlay.TabIndex = 13
@@ -42,12 +45,29 @@ Partial Class frmSecond
         'pbxInstall
         '
         Me.pbxInstall.BackColor = System.Drawing.Color.Transparent
-        Me.pbxInstall.Image = Global.TERA_Launcher.My.Resources.Resources.start_normal
-        Me.pbxInstall.Location = New System.Drawing.Point(244, 278)
+        Me.pbxInstall.Image = Global.TERA_Launcher.My.Resources.Resources.install_normal
+        Me.pbxInstall.Location = New System.Drawing.Point(115, 287)
         Me.pbxInstall.Name = "pbxInstall"
         Me.pbxInstall.Size = New System.Drawing.Size(257, 107)
         Me.pbxInstall.TabIndex = 14
         Me.pbxInstall.TabStop = False
+        '
+        'ProgressBar
+        '
+        Me.ProgressBar.Location = New System.Drawing.Point(115, 245)
+        Me.ProgressBar.Name = "ProgressBar"
+        Me.ProgressBar.Size = New System.Drawing.Size(257, 23)
+        Me.ProgressBar.TabIndex = 15
+        '
+        'pbxCancel
+        '
+        Me.pbxCancel.BackColor = System.Drawing.Color.Transparent
+        Me.pbxCancel.Image = Global.TERA_Launcher.My.Resources.Resources.cancel_normal
+        Me.pbxCancel.Location = New System.Drawing.Point(115, 287)
+        Me.pbxCancel.Name = "pbxCancel"
+        Me.pbxCancel.Size = New System.Drawing.Size(257, 107)
+        Me.pbxCancel.TabIndex = 16
+        Me.pbxCancel.TabStop = False
         '
         'frmSecond
         '
@@ -56,6 +76,8 @@ Partial Class frmSecond
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.pbxCancel)
+        Me.Controls.Add(Me.ProgressBar)
         Me.Controls.Add(Me.pbxInstall)
         Me.Controls.Add(Me.pbxPlay)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -66,10 +88,13 @@ Partial Class frmSecond
         Me.Text = "TERA-Launcher"
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Private WithEvents pbxPlay As PictureBox
     Private WithEvents pbxInstall As PictureBox
+    Friend WithEvents ProgressBar As ProgressBar
+    Private WithEvents pbxCancel As PictureBox
 End Class
