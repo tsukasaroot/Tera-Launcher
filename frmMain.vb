@@ -20,8 +20,10 @@ Public Class frmMain
             Exit Sub
         End If
         If PlayerExist(txtAccount.Text, txtPassword.Text) Then
+            PlayerName = txtAccount.Text
+            PlayerPassword = txtPassword.Text
             frmSecond.Show()
-            Me.Close()
+            Me.Hide()
         Else
             MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
         End If

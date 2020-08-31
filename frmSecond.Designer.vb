@@ -24,7 +24,9 @@ Partial Class frmSecond
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSecond))
         Me.pbxPlay = New System.Windows.Forms.PictureBox()
+        Me.pbxInstall = New System.Windows.Forms.PictureBox()
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pbxPlay
@@ -37,6 +39,16 @@ Partial Class frmSecond
         Me.pbxPlay.TabIndex = 13
         Me.pbxPlay.TabStop = False
         '
+        'pbxInstall
+        '
+        Me.pbxInstall.BackColor = System.Drawing.Color.Transparent
+        Me.pbxInstall.Image = Global.TERA_Launcher.My.Resources.Resources.start_normal
+        Me.pbxInstall.Location = New System.Drawing.Point(244, 278)
+        Me.pbxInstall.Name = "pbxInstall"
+        Me.pbxInstall.Size = New System.Drawing.Size(257, 107)
+        Me.pbxInstall.TabIndex = 14
+        Me.pbxInstall.TabStop = False
+        '
         'frmSecond
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -44,6 +56,7 @@ Partial Class frmSecond
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.pbxInstall)
         Me.Controls.Add(Me.pbxPlay)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -52,9 +65,11 @@ Partial Class frmSecond
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "TERA-Launcher"
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Private WithEvents pbxPlay As PictureBox
+    Private WithEvents pbxInstall As PictureBox
 End Class

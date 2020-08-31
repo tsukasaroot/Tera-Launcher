@@ -7,34 +7,59 @@ Imports System.Text
 
 Public Class frmSecond
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        pbxPlay.Visible = False
+        pbxInstall.Visible = False
+        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
+        pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_normal
+
+        If Not File.Exists("tera.exe") Then
+            pbxInstall.Visible = True
+        Else
+            pbxPlay.Visible = True
+        End If
     End Sub
 
     Private Sub pbxPlay_Click(sender As Object, e As EventArgs) Handles pbxPlay.Click
-
     End Sub
-    Private Sub pbxStart_MouseEnter(sender As Object, e As EventArgs) Handles pbxPlay.MouseEnter
-        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.start_hover
-    End Sub
-
-    Private Sub pbxStart_MouseLeave(sender As Object, e As EventArgs) Handles pbxPlay.MouseLeave
-        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.start_normal
+    Private Sub pbxPlay_MouseEnter(sender As Object, e As EventArgs) Handles pbxPlay.MouseEnter
+        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_hover
     End Sub
 
-    Private Sub pbxStart_MouseDown(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseDown
-        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.start_active
+    Private Sub pbxPlay_MouseLeave(sender As Object, e As EventArgs) Handles pbxPlay.MouseLeave
+        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
     End Sub
 
-    Private Sub pbxStart_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseUp
-        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.start_normal
-        'Check if tera.exe file exists.
-        If Not File.Exists("tera.exe") Then
-            MsgBox("Could not find tera.exe", MsgBoxStyle.OkOnly, Me.Text)
-            Exit Sub
-        End If
+    Private Sub pbxPlay_MouseDown(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseDown
+        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_active
+    End Sub
+
+    Private Sub pbxPlay_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseUp
+        pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
         'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server
         Process.Start("tera.exe", "1 " + frmMain.getMD5(frmMain.PlayerPassword) + " 1 1 " + frmMain.PlayerName + " en")
         'Close launcher.
+        frmMain.Close()
+        Me.Close()
         End
+    End Sub
+
+    ' If Tera is not installed
+    Private Sub pbxInstall_Click(sender As Object, e As EventArgs) Handles pbxInstall.Click
+    End Sub
+    Private Sub pbxInstall_MouseEnter(sender As Object, e As EventArgs) Handles pbxInstall.MouseEnter
+        pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_hover
+    End Sub
+
+    Private Sub pbxInstall_MouseLeave(sender As Object, e As EventArgs) Handles pbxInstall.MouseLeave
+        pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_normal
+    End Sub
+
+    Private Sub pbxInstall_MouseDown(sender As Object, e As MouseEventArgs) Handles pbxInstall.MouseDown
+        pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_active
+    End Sub
+
+    Private Sub pbxInstall_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxInstall.MouseUp
+        pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_normal
     End Sub
 End Class
 

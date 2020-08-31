@@ -154,6 +154,12 @@
     <None Include="images\start_active.png" />
     <None Include="images\start_normal.png" />
     <None Include="images\background.jpg" />
+    <Content Include="images\install_active.png" />
+    <Content Include="images\install_hover.png" />
+    <Content Include="images\install_normal.png" />
+    <Content Include="images\play_active.png" />
+    <Content Include="images\play_hover.png" />
+    <Content Include="images\play_normal.png" />
     <Content Include="images\register_active.png" />
     <Content Include="images\register_hover.png" />
     <Content Include="images\register_normal.png" />
