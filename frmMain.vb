@@ -23,7 +23,7 @@ Public Class frmMain
             PlayerName = txtAccount.Text
             PlayerPassword = txtPassword.Text
             frmSecond.Show()
-            Me.Hide()
+            Me.Close()
         Else
             MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
         End If

@@ -6,6 +6,8 @@ Imports System.Text
 #Disable Warning IDE1006 ' Styles d'affectation de noms
 
 Public Class frmSecond
+    Public PlayerPassword As String = frmMain.PlayerPassword
+    Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
 
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -37,7 +39,7 @@ Public Class frmSecond
     Private Sub pbxPlay_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseUp
         pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
         'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server
-        Process.Start("tera.exe", "1 " + frmMain.getMD5(frmMain.PlayerPassword) + " 1 1 " + frmMain.PlayerName + " en")
+        Process.Start("tera.exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 1 " + PlayerName + " en")
         'Close launcher.
         frmMain.Close()
         Me.Close()
@@ -95,6 +97,7 @@ Public Class frmSecond
         WC.CancelAsync()
         WC.Dispose()
         pbxInstall.Visible = True
+        ProgressBar.Value = 0
         pbxCancel.Visible = False
     End Sub
 End Class
