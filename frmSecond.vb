@@ -84,9 +84,11 @@ Public Class frmSecond
     Private Sub pbxDownloadCompleted(ByVal sender As Object, ByVal e As AsyncCompletedEventArgs) Handles WC.DownloadFileCompleted
         If Progression.Equals(MAX_FILES) Then
             pbxClearAll()
-        Else
+        ElseIf Not e.Cancelled Then
             ProgressBar.Value = 0
+            WC.CancelAsync()
             Progression += 1
+            WC.Dispose()
             pbxManageDownload()
         End If
     End Sub
@@ -119,6 +121,7 @@ Public Class frmSecond
     ' Cancel download
     Private Sub pbxCancel_Click(sender As Object, e As EventArgs) Handles pbxCancel.Click
     End Sub
+
     Private Sub pbxCancel_MouseEnter(sender As Object, e As EventArgs) Handles pbxCancel.MouseEnter, pbxInstall.MouseEnter
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.cancel_hover
     End Sub
@@ -139,6 +142,7 @@ Public Class frmSecond
         ProgressBar.Value = 0
         pbxCancel.Visible = False
         lblProgression.Text = "0%"
+        My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".rar")
     End Sub
 End Class
 
