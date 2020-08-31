@@ -90,6 +90,12 @@ Public Class frmSecond
             Progression += 1
             WC.Dispose()
             pbxManageDownload()
+        ElseIf e.Cancelled Then
+            pbxInstall.Visible = True
+            ProgressBar.Value = 0
+            pbxCancel.Visible = False
+            lblProgression.Text = "0% " + "0/" + MAX_FILES.ToString
+            My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".rar")
         End If
     End Sub
 
@@ -138,11 +144,6 @@ Public Class frmSecond
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.cancel_normal
         WC.CancelAsync()
         WC.Dispose()
-        pbxInstall.Visible = True
-        ProgressBar.Value = 0
-        pbxCancel.Visible = False
-        lblProgression.Text = "0%"
-        My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".rar")
     End Sub
 End Class
 
