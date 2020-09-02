@@ -9,7 +9,7 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 29
+    Private MAX_FILES As Integer = 7
 
 
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -95,7 +95,7 @@ Public Class frmSecond
             ProgressBar.Value = 0
             pbxCancel.Visible = False
             lblProgression.Text = "0% " + "0/" + MAX_FILES.ToString
-            My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".rar")
+            My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".zip")
         End If
     End Sub
 
@@ -112,8 +112,8 @@ Public Class frmSecond
 
     ' Manage the files download
     Private Sub pbxManageDownload()
-        If Not File.Exists("part" + Progression.ToString + ".rar") Then
-            WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/TERA%20NAEU-1732.part" + Progression.ToString + ".rar"), "./part" + Progression.ToString + ".rar")
+        If Not File.Exists("part" + Progression.ToString + ".zip") Then
+            WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/part" + Progression.ToString + ".zip"), "./part" + Progression.ToString + ".zip")
         ElseIf Not Progression.Equals(MAX_FILES) Then
             WC.CancelAsync()
             WC.Dispose()

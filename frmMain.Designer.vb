@@ -120,7 +120,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "TERA-Launcher"
+        Me.Text = "             "
         CType(Me.pbxStart, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbxRegister, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

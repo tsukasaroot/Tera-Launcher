@@ -37,7 +37,7 @@ Partial Class frmSecond
         'pbxPlay
         '
         Me.pbxPlay.BackColor = System.Drawing.Color.Transparent
-        Me.pbxPlay.Image = Global.TERA_Launcher.My.Resources.Resources.start_normal
+        Me.pbxPlay.Image = Global.TERA_Launcher.My.Resources.Resources.play_normal
         Me.pbxPlay.Location = New System.Drawing.Point(115, 287)
         Me.pbxPlay.Name = "pbxPlay"
         Me.pbxPlay.Size = New System.Drawing.Size(257, 107)
