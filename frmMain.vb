@@ -8,6 +8,8 @@ Imports System.Text
 Public Class frmMain
     Public PlayerPassword As String
     Public PlayerName As String
+    Public Remember As Boolean = False
+    Public filename As String = "account.account"
 
     Private Sub pbxStart_Click(sender As Object, e As EventArgs) Handles pbxStart.Click
         'Check if info is entered.
@@ -20,8 +22,17 @@ Public Class frmMain
             Exit Sub
         End If
         If PlayerExist(txtAccount.Text, txtPassword.Text) Then
-            PlayerName = txtAccount.Text
-            PlayerPassword = txtPassword.Text
+            If Not File.Exists(filename) Then
+                If Remember Then
+                    Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, True)
+
+                    writer.WriteLine(txtAccount.Text)
+                    writer.WriteLine(txtPassword.Text)
+                    writer.Close()
+                    PlayerName = txtAccount.Text
+                    PlayerPassword = txtPassword.Text
+                End If
+            End If
             frmSecond.Show()
             Me.Close()
         Else
@@ -90,7 +101,13 @@ Public Class frmMain
     End Function
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        If File.Exists("account.account") Then
+            Dim reader As StreamReader = My.Computer.FileSystem.OpenTextFileReader(filename)
+            PlayerName = reader.ReadLine()
+            PlayerPassword = reader.ReadLine()
+            frmSecond.Show()
+            Me.Close()
+        End If
     End Sub
 
     Private Sub lblAccount_Click(sender As Object, e As EventArgs) Handles lblAccount.Click
@@ -107,6 +124,14 @@ Public Class frmMain
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If Remember Then
+            Remember = False
+        Else
+            Remember = True
+        End If
     End Sub
 End Class
 #Enable Warning IDE1006 ' Styles d'affectation de noms

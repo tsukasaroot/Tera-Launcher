@@ -29,6 +29,7 @@ Partial Class frmMain
         Me.lblPassword = New System.Windows.Forms.Label()
         Me.lblAccount = New System.Windows.Forms.Label()
         Me.pbxRegister = New System.Windows.Forms.PictureBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.pbxStart, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxRegister, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -102,6 +103,18 @@ Partial Class frmMain
         Me.pbxRegister.TabIndex = 13
         Me.pbxRegister.TabStop = False
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.BackColor = System.Drawing.Color.Transparent
+        Me.CheckBox1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.CheckBox1.Location = New System.Drawing.Point(285, 212)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(72, 17)
+        Me.CheckBox1.TabIndex = 14
+        Me.CheckBox1.Text = "remember"
+        Me.CheckBox1.UseVisualStyleBackColor = False
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -109,6 +122,7 @@ Partial Class frmMain
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.pbxRegister)
         Me.Controls.Add(Me.pbxStart)
         Me.Controls.Add(Me.txtPassword)
@@ -133,4 +147,5 @@ Partial Class frmMain
     Private WithEvents lblPassword As Label
     Private WithEvents lblAccount As Label
     Private WithEvents pbxRegister As PictureBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.ComponentModel
+Imports System.IO.Compression
 
 #Disable Warning IDE1006 ' Styles d'affectation de noms
 
@@ -9,7 +10,8 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 7
+    Private MAX_FILES As Integer = 5 ' 7
+    Private Abort As AsyncCompletedEventArgs
 
 
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -82,32 +84,30 @@ Public Class frmSecond
 
     ' Do actions when download complete
     Private Sub pbxDownloadCompleted(ByVal sender As Object, ByVal e As AsyncCompletedEventArgs) Handles WC.DownloadFileCompleted
+        Abort = e
         If Progression.Equals(MAX_FILES) Then
             pbxClearAll()
-        ElseIf Not e.Cancelled Then
+        ElseIf Not Abort.Cancelled Then
             ProgressBar.Value = 0
             WC.CancelAsync()
             Progression += 1
             WC.Dispose()
             pbxManageDownload()
-        ElseIf e.Cancelled Then
-            pbxInstall.Visible = True
-            ProgressBar.Value = 0
-            pbxCancel.Visible = False
+        ElseIf Abort.Cancelled Then
             lblProgression.Text = "0% " + "0/" + MAX_FILES.ToString
-            My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".zip")
         End If
     End Sub
 
     Private Sub pbxClearAll()
+        WC.Dispose()
+        pbxManageArchitecture()
         pbxPlay.Visible = True
         pbxInstall.Visible = False
         pbxCancel.Visible = False
         ProgressBar.Visible = False
         lblProgression.Visible = False
-        WC.CancelAsync()
         WC.Dispose()
-        MsgBox("Download completed", MsgBoxStyle.OkOnly, Me.Text)
+        MsgBox("Download & Installation completed", MsgBoxStyle.OkOnly, Me.Text)
     End Sub
 
     ' Manage the files download
@@ -119,9 +119,41 @@ Public Class frmSecond
             WC.Dispose()
             Progression += 1
             pbxManageDownload()
-        Else
+        ElseIf Progression.Equals(MAX_FILES) Then
             pbxClearAll()
         End If
+    End Sub
+
+    ' When all parts are present in the same folder, we build them back
+    Private Sub pbxManageArchitecture()
+        For X = 1 To MAX_FILES
+            Try
+                If X = 1 Then
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\")
+                ElseIf X = 2 Then
+                    My.Computer.FileSystem.CreateDirectory("Client")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\")
+                ElseIf X = 3 Then
+                    My.Computer.FileSystem.CreateDirectory("Client\S1Game")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\")
+                ElseIf X = 4 Then
+                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\")
+                ElseIf X = 5 Then
+                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
+                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data\Maps")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\lient\S1Game\CookedPC\Art_Data\Maps\")
+                ElseIf X = 6 Then
+                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_DataPackages\")
+                ElseIf X = 7 Then
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\lient\S1Game\CookedPC\Art_Data\Packages\")
+                End If
+                lblProgression.Text = "Installing " + X.ToString
+            Catch ex As Exception
+                MsgBox("Can't Extract file" & vbCrLf & ex.Message)
+            End Try
+        Next X
     End Sub
 
     ' Cancel download
@@ -143,7 +175,11 @@ Public Class frmSecond
     Private Sub pbxCancel_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxCancel.MouseUp
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.cancel_normal
         WC.CancelAsync()
-        WC.Dispose()
+        pbxInstall.Visible = True
+        ProgressBar.Value = 0
+        pbxCancel.Visible = False
+        lblProgression.Text = "0% " + "0/" + MAX_FILES.ToString
+        My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".zip")
     End Sub
 End Class
 
