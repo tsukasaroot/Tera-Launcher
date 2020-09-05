@@ -133,9 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +156,6 @@
     <None Include="images\start_active.png" />
     <None Include="images\start_normal.png" />
     <None Include="images\background.jpg" />
-    <Content Include="images\button%281%29.png" />
-    <Content Include="images\button.png" />
     <Content Include="images\cancel_active.png" />
     <Content Include="images\cancel_hover.png" />
     <Content Include="images\cancel_normal.png" />
@@ -170,6 +168,9 @@
     <Content Include="images\register_active.png" />
     <Content Include="images\register_hover.png" />
     <Content Include="images\register_normal.png" />
+    <Content Include="images\repair_active.png" />
+    <Content Include="images\repair_hover.png" />
+    <Content Include="images\repair_normal.png" />
     <Content Include="TERA.ico" />
   </ItemGroup>
   <ItemGroup>

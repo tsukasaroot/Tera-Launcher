@@ -10,7 +10,7 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 5 ' 7
+    Private MAX_FILES As Integer = 7 ' 7
     Private Abort As AsyncCompletedEventArgs
 
 
@@ -19,12 +19,15 @@ Public Class frmSecond
         pbxInstall.Visible = False
         pbxCancel.Visible = False
         lblProgression.Visible = False
+        ProgressBar.Visible = False
+        pbxRepair.Visible = False
         lblUser.Text = PlayerName
 
         If Not File.Exists("tera.exe") Then
             pbxInstall.Visible = True
             lblProgression.Visible = True
         Else
+            pbxRepair.Visible = True
             pbxPlay.Visible = True
         End If
     End Sub
@@ -74,6 +77,7 @@ Public Class frmSecond
         pbxManageDownload()
         pbxInstall.Visible = False
         pbxCancel.Visible = True
+        ProgressBar.Visible = True
     End Sub
 
     ' Display the progression
@@ -126,41 +130,49 @@ Public Class frmSecond
 
     ' When all parts are present in the same folder, we build them back
     Private Sub pbxManageArchitecture()
+        lblProgression.Visible = True
         For X = 1 To MAX_FILES
             Try
                 If X = 1 Then
+                    lblProgression.Text = "0% " + "1/" + MAX_FILES.ToString
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\")
                 ElseIf X = 2 Then
+                    lblProgression.Text = "0% " + "2/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\")
                 ElseIf X = 3 Then
+                    lblProgression.Text = "0% " + "3/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\")
                 ElseIf X = 4 Then
+                    lblProgression.Text = "0% " + "4/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\")
                 ElseIf X = 5 Then
+                    lblProgression.Text = "0% " + "5/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
-                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data\Maps")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\lient\S1Game\CookedPC\Art_Data\Maps\")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Maps\")
                 ElseIf X = 6 Then
+                    lblProgression.Text = "0% " + "6/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_DataPackages\")
                 ElseIf X = 7 Then
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\lient\S1Game\CookedPC\Art_Data\Packages\")
+                    lblProgression.Text = "0% " + "7/" + MAX_FILES.ToString
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
                 End If
                 lblProgression.Text = "Installing " + X.ToString
             Catch ex As Exception
                 MsgBox("Can't Extract file" & vbCrLf & ex.Message)
             End Try
         Next X
+        lblProgression.Visible = False
     End Sub
 
     ' Cancel download
     Private Sub pbxCancel_Click(sender As Object, e As EventArgs) Handles pbxCancel.Click
     End Sub
 
-    Private Sub pbxCancel_MouseEnter(sender As Object, e As EventArgs) Handles pbxCancel.MouseEnter, pbxInstall.MouseEnter
+    Private Sub pbxCancel_MouseEnter(sender As Object, e As EventArgs) Handles pbxCancel.MouseEnter
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.cancel_hover
     End Sub
 
@@ -180,6 +192,26 @@ Public Class frmSecond
         pbxCancel.Visible = False
         lblProgression.Text = "0% " + "0/" + MAX_FILES.ToString
         My.Computer.FileSystem.DeleteFile("part" + Progression.ToString + ".zip")
+    End Sub
+
+    ' Repair part
+    Private Sub pbxRepair_Click(sender As Object, e As EventArgs) Handles pbxRepair.Click
+    End Sub
+
+    Private Sub pbxRepair_MouseEnter(sender As Object, e As EventArgs) Handles pbxRepair.MouseEnter
+        pbxRepair.Image = TERA_Launcher.My.Resources.Resources.repair_hover
+    End Sub
+
+    Private Sub pbxRepair_MouseLeave(sender As Object, e As EventArgs) Handles pbxRepair.MouseLeave
+        pbxRepair.Image = TERA_Launcher.My.Resources.Resources.repair_normal
+    End Sub
+
+    Private Sub pbxRepair_MouseDown(sender As Object, e As MouseEventArgs) Handles pbxRepair.MouseDown
+        pbxRepair.Image = TERA_Launcher.My.Resources.Resources.repair_active
+    End Sub
+
+    Private Sub pbxRepair_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxRepair.MouseUp
+        pbxCancel.Image = TERA_Launcher.My.Resources.Resources.repair_normal
     End Sub
 End Class
 

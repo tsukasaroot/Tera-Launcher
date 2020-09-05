@@ -29,9 +29,11 @@ Partial Class frmSecond
         Me.pbxCancel = New System.Windows.Forms.PictureBox()
         Me.lblProgression = New System.Windows.Forms.Label()
         Me.lblUser = New System.Windows.Forms.Label()
+        Me.pbxRepair = New System.Windows.Forms.PictureBox()
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbxRepair, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pbxPlay
@@ -79,9 +81,8 @@ Partial Class frmSecond
         Me.lblProgression.ForeColor = System.Drawing.Color.Silver
         Me.lblProgression.Location = New System.Drawing.Point(209, 223)
         Me.lblProgression.Name = "lblProgression"
-        Me.lblProgression.Size = New System.Drawing.Size(34, 19)
+        Me.lblProgression.Size = New System.Drawing.Size(0, 19)
         Me.lblProgression.TabIndex = 17
-        Me.lblProgression.Text = "0%"
         Me.lblProgression.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblUser
@@ -95,7 +96,17 @@ Partial Class frmSecond
         Me.lblUser.Size = New System.Drawing.Size(60, 25)
         Me.lblUser.TabIndex = 18
         Me.lblUser.Text = "User"
-        Me.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblUser.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'pbxRepair
+        '
+        Me.pbxRepair.BackColor = System.Drawing.Color.Transparent
+        Me.pbxRepair.Image = Global.TERA_Launcher.My.Resources.Resources.repair_normal
+        Me.pbxRepair.Location = New System.Drawing.Point(115, 113)
+        Me.pbxRepair.Name = "pbxRepair"
+        Me.pbxRepair.Size = New System.Drawing.Size(257, 107)
+        Me.pbxRepair.TabIndex = 19
+        Me.pbxRepair.TabStop = False
         '
         'frmSecond
         '
@@ -104,6 +115,7 @@ Partial Class frmSecond
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.pbxRepair)
         Me.Controls.Add(Me.lblUser)
         Me.Controls.Add(Me.lblProgression)
         Me.Controls.Add(Me.pbxCancel)
@@ -119,6 +131,7 @@ Partial Class frmSecond
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbxRepair, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -130,4 +143,5 @@ Partial Class frmSecond
     Private WithEvents pbxCancel As PictureBox
     Private WithEvents lblProgression As Label
     Private WithEvents lblUser As Label
+    Private WithEvents pbxRepair As PictureBox
 End Class

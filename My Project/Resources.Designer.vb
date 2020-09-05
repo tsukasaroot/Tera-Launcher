@@ -73,26 +73,6 @@ Namespace My.Resources
         '''<summary>
         '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property button() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("button", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property button_1_() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("button_1_", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property cancel_active() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("cancel_active", resourceCulture)
@@ -206,6 +186,36 @@ Namespace My.Resources
         Friend ReadOnly Property register_normal() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("register_normal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property repair_active() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("repair_active", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property repair_hover() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("repair_hover", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Recherche une ressource localisée de type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property repair_normal() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("repair_normal", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
