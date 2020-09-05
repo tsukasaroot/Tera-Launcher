@@ -10,7 +10,7 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 7 ' 7
+    Private MAX_FILES As Integer = 3 ' 7
     Private Abort As AsyncCompletedEventArgs
 
 
@@ -134,30 +134,30 @@ Public Class frmSecond
         For X = 1 To MAX_FILES
             Try
                 If X = 1 Then
-                    lblProgression.Text = "0% " + "1/" + MAX_FILES.ToString
+                    lblProgression.Text = "1/" + MAX_FILES.ToString
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\")
                 ElseIf X = 2 Then
-                    lblProgression.Text = "0% " + "2/" + MAX_FILES.ToString
+                    lblProgression.Text = "2/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\")
                 ElseIf X = 3 Then
-                    lblProgression.Text = "0% " + "3/" + MAX_FILES.ToString
+                    lblProgression.Text = "3/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\")
                 ElseIf X = 4 Then
-                    lblProgression.Text = "0% " + "4/" + MAX_FILES.ToString
+                    lblProgression.Text = "4/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\")
                 ElseIf X = 5 Then
-                    lblProgression.Text = "0% " + "5/" + MAX_FILES.ToString
+                    lblProgression.Text = "5/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Maps\")
                 ElseIf X = 6 Then
-                    lblProgression.Text = "0% " + "6/" + MAX_FILES.ToString
+                    lblProgression.Text = "6/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
                 ElseIf X = 7 Then
-                    lblProgression.Text = "0% " + "7/" + MAX_FILES.ToString
+                    lblProgression.Text = "7/" + MAX_FILES.ToString
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
                 End If
                 lblProgression.Text = "Installing " + X.ToString

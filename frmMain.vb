@@ -105,8 +105,13 @@ Public Class frmMain
             Dim reader As StreamReader = My.Computer.FileSystem.OpenTextFileReader(filename)
             PlayerName = reader.ReadLine()
             PlayerPassword = reader.ReadLine()
-            frmSecond.Show()
-            Me.Close()
+            If PlayerExist(PlayerName, PlayerPassword) Then
+                frmSecond.Show()
+                Me.Close()
+            Else
+                My.Computer.FileSystem.DeleteFile("account.account")
+                MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
+            End If
         End If
     End Sub
 
