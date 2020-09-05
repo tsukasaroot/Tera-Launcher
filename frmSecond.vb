@@ -155,7 +155,7 @@ Public Class frmSecond
                 ElseIf X = 6 Then
                     lblProgression.Text = "0% " + "6/" + MAX_FILES.ToString
                     My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_DataPackages\")
+                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
                 ElseIf X = 7 Then
                     lblProgression.Text = "0% " + "7/" + MAX_FILES.ToString
                     ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
