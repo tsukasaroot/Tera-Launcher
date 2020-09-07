@@ -115,8 +115,6 @@ Partial Class frmSecond
         '
         Me.chkEN.AutoSize = True
         Me.chkEN.BackColor = System.Drawing.Color.Transparent
-        Me.chkEN.Checked = True
-        Me.chkEN.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkEN.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.chkEN.Location = New System.Drawing.Point(17, 113)
         Me.chkEN.Name = "chkEN"

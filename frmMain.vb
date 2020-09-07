@@ -29,10 +29,10 @@ Public Class frmMain
                     writer.WriteLine(txtAccount.Text)
                     writer.WriteLine(txtPassword.Text)
                     writer.Close()
-                    PlayerName = txtAccount.Text
-                    PlayerPassword = txtPassword.Text
                 End If
             End If
+            PlayerName = txtAccount.Text
+            PlayerPassword = txtPassword.Text
             frmSecond.Show()
             Me.Close()
         Else
@@ -101,19 +101,30 @@ Public Class frmMain
     End Function
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If File.Exists("account.account") Then
+        If File.Exists(filename) Then
             Dim reader As StreamReader = My.Computer.FileSystem.OpenTextFileReader(filename)
-            PlayerName = reader.ReadLine()
-            PlayerPassword = reader.ReadLine()
-            If PlayerExist(PlayerName, PlayerPassword) Then
-                frmSecond.Show()
-                Me.Close()
-            Else
-                My.Computer.FileSystem.DeleteFile("account.account")
-                MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
+            If checkLines(2) Then
+                PlayerName = reader.ReadLine()
+                PlayerPassword = reader.ReadLine()
+                If PlayerExist(PlayerName, PlayerPassword) Then
+                    frmSecond.Show()
+                    Me.Close()
+                Else
+                    My.Computer.FileSystem.DeleteFile("account.account")
+                    MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
+                End If
             End If
         End If
     End Sub
+
+    Private Function checkLines(val As Integer) As Boolean
+        Dim lines = File.ReadAllLines(filename)
+        If lines.Length.Equals(2) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Private Sub lblAccount_Click(sender As Object, e As EventArgs) Handles lblAccount.Click
 

@@ -8,6 +8,9 @@ Imports System.IO.Compression
 Public Class frmSecond
     Public PlayerPassword As String = frmMain.PlayerPassword
     Public PlayerName As String = frmMain.PlayerName
+    Public Remember As Boolean = frmMain.Remember
+    Public filename As String = frmMain.filename
+    Public Language As Integer
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
     Private MAX_FILES As Integer = 7 ' 7
@@ -32,7 +35,24 @@ Public Class frmSecond
         chkEN.Visible = False
         chkFR.Visible = False
         lblUser.Text = PlayerName
-        LangStatus = Lang.en
+
+        If File.Exists(filename) Then
+            Dim reader As StreamReader = My.Computer.FileSystem.OpenTextFileReader(filename)
+            reader.ReadLine()
+            reader.ReadLine()
+            Language = reader.ReadLine()
+
+            If Not Language Then
+                LangStatus = Lang.en
+                chkEN.CheckState = CheckState.Checked
+            ElseIf Language.Equals(txtLang(Lang.fr)) Then
+                LangStatus = Lang.fr
+                chkFR.CheckState = CheckState.Checked
+            ElseIf Language.Equals(txtLang(Lang.de)) Then
+                LangStatus = Lang.de
+                chkDE.CheckState = CheckState.Checked
+            End If
+        End If
 
         If Not File.Exists("Client\Binaries\terauk.exe") And Not File.Exists("Client\Binaries\terafr.exe") Then
             pbxInstall.Visible = True
@@ -46,8 +66,6 @@ Public Class frmSecond
         End If
     End Sub
 
-    Private Sub pbxPlay_Click(sender As Object, e As EventArgs) Handles pbxPlay.Click
-    End Sub
     Private Sub pbxPlay_MouseEnter(sender As Object, e As EventArgs) Handles pbxPlay.MouseEnter
         pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_hover
     End Sub
@@ -64,6 +82,16 @@ Public Class frmSecond
         pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
         Dim realLong = LangStatus + 1
         Dim lang As String = txtLang(LangStatus)
+
+        ' Saving the client language
+        Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, True)
+        If Remember Then
+            writer.WriteLine(PlayerName)
+            writer.WriteLine(PlayerPassword)
+        End If
+        writer.WriteLine(LangStatus + 1)
+        writer.Close()
+
         'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server 3rd one correspond to client language
         Process.Start("Client\Binaries\tera" + lang + ".exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 " + realLong.ToString + " " + PlayerName + " " + lang)
         'Close launcher.
@@ -73,8 +101,6 @@ Public Class frmSecond
     End Sub
 
     ' If Tera is not installed
-    Private Sub pbxInstall_Click(sender As Object, e As EventArgs) Handles pbxInstall.Click
-    End Sub
     Private Sub pbxInstall_MouseEnter(sender As Object, e As EventArgs) Handles pbxInstall.MouseEnter
         pbxInstall.Image = TERA_Launcher.My.Resources.Resources.install_hover
     End Sub
@@ -185,8 +211,6 @@ Public Class frmSecond
     End Sub
 
     ' Cancel download
-    Private Sub pbxCancel_Click(sender As Object, e As EventArgs) Handles pbxCancel.Click
-    End Sub
 
     Private Sub pbxCancel_MouseEnter(sender As Object, e As EventArgs) Handles pbxCancel.MouseEnter
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.cancel_hover
@@ -211,8 +235,6 @@ Public Class frmSecond
     End Sub
 
     ' Repair part
-    Private Sub pbxRepair_Click(sender As Object, e As EventArgs) Handles pbxRepair.Click
-    End Sub
 
     Private Sub pbxRepair_MouseEnter(sender As Object, e As EventArgs) Handles pbxRepair.MouseEnter
         pbxRepair.Image = TERA_Launcher.My.Resources.Resources.repair_hover
@@ -230,6 +252,7 @@ Public Class frmSecond
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.repair_normal
     End Sub
 
+    ' multilanguage support
     Private Sub chkEN_Click(sender As Object, e As EventArgs) Handles chkEN.Click
         If chkEN.Checked Then
             chkFR.CheckState = False
