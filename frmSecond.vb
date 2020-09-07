@@ -10,7 +10,7 @@ Public Class frmSecond
     Public PlayerName As String = frmMain.PlayerName
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 3 ' 7
+    Private MAX_FILES As Integer = 7 ' 7
     Private Abort As AsyncCompletedEventArgs
     Private Enum Lang As Integer
         en
@@ -28,6 +28,9 @@ Public Class frmSecond
         lblProgression.Visible = False
         ProgressBar.Visible = False
         pbxRepair.Visible = False
+        chkDE.Visible = False
+        chkEN.Visible = False
+        chkFR.Visible = False
         lblUser.Text = PlayerName
         LangStatus = Lang.en
 
@@ -35,6 +38,9 @@ Public Class frmSecond
             pbxInstall.Visible = True
             lblProgression.Visible = True
         Else
+            chkDE.Visible = True
+            chkEN.Visible = True
+            chkFR.Visible = True
             pbxRepair.Visible = True
             pbxPlay.Visible = True
         End If
