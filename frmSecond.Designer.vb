@@ -30,6 +30,9 @@ Partial Class frmSecond
         Me.lblProgression = New System.Windows.Forms.Label()
         Me.lblUser = New System.Windows.Forms.Label()
         Me.pbxRepair = New System.Windows.Forms.PictureBox()
+        Me.chkEN = New System.Windows.Forms.CheckBox()
+        Me.chkFR = New System.Windows.Forms.CheckBox()
+        Me.chkDE = New System.Windows.Forms.CheckBox()
         CType(Me.pbxPlay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxInstall, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbxCancel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,6 +111,44 @@ Partial Class frmSecond
         Me.pbxRepair.TabIndex = 19
         Me.pbxRepair.TabStop = False
         '
+        'chkEN
+        '
+        Me.chkEN.AutoSize = True
+        Me.chkEN.BackColor = System.Drawing.Color.Transparent
+        Me.chkEN.Checked = True
+        Me.chkEN.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEN.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.chkEN.Location = New System.Drawing.Point(17, 113)
+        Me.chkEN.Name = "chkEN"
+        Me.chkEN.Size = New System.Drawing.Size(41, 17)
+        Me.chkEN.TabIndex = 21
+        Me.chkEN.Text = "EN"
+        Me.chkEN.UseVisualStyleBackColor = False
+        '
+        'chkFR
+        '
+        Me.chkFR.AutoSize = True
+        Me.chkFR.BackColor = System.Drawing.Color.Transparent
+        Me.chkFR.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.chkFR.Location = New System.Drawing.Point(17, 136)
+        Me.chkFR.Name = "chkFR"
+        Me.chkFR.Size = New System.Drawing.Size(40, 17)
+        Me.chkFR.TabIndex = 22
+        Me.chkFR.Text = "FR"
+        Me.chkFR.UseVisualStyleBackColor = False
+        '
+        'chkDE
+        '
+        Me.chkDE.AutoSize = True
+        Me.chkDE.BackColor = System.Drawing.Color.Transparent
+        Me.chkDE.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.chkDE.Location = New System.Drawing.Point(17, 159)
+        Me.chkDE.Name = "chkDE"
+        Me.chkDE.Size = New System.Drawing.Size(41, 17)
+        Me.chkDE.TabIndex = 23
+        Me.chkDE.Text = "DE"
+        Me.chkDE.UseVisualStyleBackColor = False
+        '
         'frmSecond
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -115,6 +156,9 @@ Partial Class frmSecond
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.TERA_Launcher.My.Resources.Resources.background
         Me.ClientSize = New System.Drawing.Size(734, 417)
+        Me.Controls.Add(Me.chkDE)
+        Me.Controls.Add(Me.chkFR)
+        Me.Controls.Add(Me.chkEN)
         Me.Controls.Add(Me.pbxRepair)
         Me.Controls.Add(Me.lblUser)
         Me.Controls.Add(Me.lblProgression)
@@ -144,4 +188,7 @@ Partial Class frmSecond
     Private WithEvents lblProgression As Label
     Private WithEvents lblUser As Label
     Private WithEvents pbxRepair As PictureBox
+    Friend WithEvents chkEN As CheckBox
+    Friend WithEvents chkFR As CheckBox
+    Friend WithEvents chkDE As CheckBox
 End Class

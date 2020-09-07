@@ -12,8 +12,15 @@ Public Class frmSecond
     Private Progression As Integer = 1
     Private MAX_FILES As Integer = 3 ' 7
     Private Abort As AsyncCompletedEventArgs
+    Private Enum Lang As Integer
+        en
+        fr
+        de
+    End Enum
+    Private LangStatus As Integer = 0
+    Private txtLang = New String() {"uk", "fr", "de"}
 
-
+    ' Load everything
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pbxPlay.Visible = False
         pbxInstall.Visible = False
@@ -22,8 +29,9 @@ Public Class frmSecond
         ProgressBar.Visible = False
         pbxRepair.Visible = False
         lblUser.Text = PlayerName
+        LangStatus = Lang.en
 
-        If Not File.Exists("tera.exe") Then
+        If Not File.Exists("Client\Binaries\terauk.exe") And Not File.Exists("Client\Binaries\terafr.exe") Then
             pbxInstall.Visible = True
             lblProgression.Visible = True
         Else
@@ -48,10 +56,12 @@ Public Class frmSecond
 
     Private Sub pbxPlay_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseUp
         pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
-        'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server
-        Process.Start("tera.exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 1 " + PlayerName + " en")
+        Dim realLong = LangStatus + 1
+        Dim lang As String = txtLang(LangStatus)
+        'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server 3rd one correspond to client language
+        Process.Start("Client\Binaries\tera" + lang + ".exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 " + realLong.ToString + " " + PlayerName + " " + lang)
         'Close launcher.
-        frmMain.Close()
+        'frmMain.Close()
         Me.Close()
         End
     End Sub
@@ -212,6 +222,30 @@ Public Class frmSecond
 
     Private Sub pbxRepair_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxRepair.MouseUp
         pbxCancel.Image = TERA_Launcher.My.Resources.Resources.repair_normal
+    End Sub
+
+    Private Sub chkEN_Click(sender As Object, e As EventArgs) Handles chkEN.Click
+        If chkEN.Checked Then
+            chkFR.CheckState = False
+            chkDE.CheckState = False
+            LangStatus = Lang.en
+        End If
+    End Sub
+
+    Private Sub chkFR_Click(sender As Object, e As EventArgs) Handles chkFR.Click
+        If chkFR.Checked Then
+            chkEN.CheckState = False
+            chkDE.CheckState = False
+            LangStatus = Lang.fr
+        End If
+    End Sub
+
+    Private Sub chkDE_Click(sender As Object, e As EventArgs) Handles chkDE.Click
+        If chkDE.Checked Then
+            chkFR.CheckState = False
+            chkEN.CheckState = False
+            LangStatus = Lang.de
+        End If
     End Sub
 End Class
 
