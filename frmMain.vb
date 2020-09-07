@@ -22,21 +22,38 @@ Public Class frmMain
             Exit Sub
         End If
         If PlayerExist(txtAccount.Text, txtPassword.Text) Then
-            If Not File.Exists(filename) Then
-                If Remember Then
+            Dim lang As Integer
+            If Remember Then
+                If Not File.Exists(filename) Then
                     Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, True)
 
                     writer.WriteLine(txtAccount.Text)
                     writer.WriteLine(txtPassword.Text)
                     writer.Close()
+                ElseIf File.Exists(filename) Then
+                    Dim reader As StreamReader = My.Computer.FileSystem.OpenTextFileReader(filename)
+                    If checkLines(2) Then
+                        reader.ReadLine()
+                        reader.ReadLine()
+                        lang = reader.ReadLine()
+                    End If
+                    reader.Close()
+                    Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, False)
+
+                    writer.WriteLine(txtAccount.Text)
+                    writer.WriteLine(txtPassword.Text)
+                    If Not lang Then
+                        writer.WriteLine(lang.ToString)
+                    End If
+                    writer.Close()
                 End If
             End If
-            PlayerName = txtAccount.Text
-            PlayerPassword = txtPassword.Text
-            frmSecond.Show()
-            Me.Close()
-        Else
-            MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
+                PlayerName = txtAccount.Text
+                PlayerPassword = txtPassword.Text
+                frmSecond.Show()
+                Me.Close()
+            Else
+                MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
         End If
     End Sub
 
@@ -107,11 +124,13 @@ Public Class frmMain
                 PlayerName = reader.ReadLine()
                 PlayerPassword = reader.ReadLine()
                 If PlayerExist(PlayerName, PlayerPassword) Then
+                    reader.Close()
                     frmSecond.Show()
                     Me.Close()
                 Else
                     My.Computer.FileSystem.DeleteFile("account.account")
                     MsgBox("Wrong credentials", MsgBoxStyle.OkOnly, Me.Text)
+                    reader.Close()
                 End If
             End If
         End If
@@ -119,7 +138,7 @@ Public Class frmMain
 
     Private Function checkLines(val As Integer) As Boolean
         Dim lines = File.ReadAllLines(filename)
-        If lines.Length.Equals(2) Then
+        If lines.Length.Equals(2) Or lines.Length.Equals(3) Then
             Return True
         Else
             Return False

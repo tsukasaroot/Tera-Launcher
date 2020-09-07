@@ -13,12 +13,12 @@ Public Class frmSecond
     Public Language As Integer
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 7 ' 7
+    Private MAX_FILES As Integer = 3 ' 7
     Private Abort As AsyncCompletedEventArgs
     Private Enum Lang As Integer
-        en
-        fr
-        de
+        en = 1
+        fr = 2
+        de = 3
     End Enum
     Private LangStatus As Integer = 0
     Private txtLang = New String() {"uk", "fr", "de"}
@@ -41,17 +41,20 @@ Public Class frmSecond
             reader.ReadLine()
             reader.ReadLine()
             Language = reader.ReadLine()
-
-            If Not Language Then
+            reader.Close()
+            If Language.Equals(0) Or Language.Equals(1) Then
                 LangStatus = Lang.en
                 chkEN.CheckState = CheckState.Checked
-            ElseIf Language.Equals(txtLang(Lang.fr)) Then
+            ElseIf Language.Equals(Lang.fr) Then
                 LangStatus = Lang.fr
                 chkFR.CheckState = CheckState.Checked
-            ElseIf Language.Equals(txtLang(Lang.de)) Then
+            ElseIf Language.Equals(Lang.de) Then
                 LangStatus = Lang.de
                 chkDE.CheckState = CheckState.Checked
             End If
+        Else
+            LangStatus = Lang.en
+            chkEN.CheckState = CheckState.Checked
         End If
 
         If Not File.Exists("Client\Binaries\terauk.exe") And Not File.Exists("Client\Binaries\terafr.exe") Then
@@ -80,25 +83,32 @@ Public Class frmSecond
 
     Private Sub pbxPlay_MouseUp(sender As Object, e As MouseEventArgs) Handles pbxPlay.MouseUp
         pbxPlay.Image = TERA_Launcher.My.Resources.Resources.play_normal
-        Dim realLong = LangStatus + 1
         Dim lang As String = txtLang(LangStatus)
 
         ' Saving the client language
-        Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, True)
+        Dim writer As StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(filename, False)
         If Remember Then
             writer.WriteLine(PlayerName)
             writer.WriteLine(PlayerPassword)
         End If
-        writer.WriteLine(LangStatus + 1)
+        writer.WriteLine(LangStatus)
         writer.Close()
 
         'Start client with parameters. the 2nd 1 correspond to an immediate login into the first server 3rd one correspond to client language
-        Process.Start("Client\Binaries\tera" + lang + ".exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 " + realLong.ToString + " " + PlayerName + " " + lang)
+        Process.Start("Client\Binaries\tera" + lang + ".exe", "1 " + frmMain.getMD5(PlayerPassword) + " 1 " + LangStatus.ToString + " " + PlayerName + " " + lang)
         'Close launcher.
-        'frmMain.Close()
         Me.Close()
         End
     End Sub
+
+    Private Function checkLines(val As Integer) As Boolean
+        Dim lines = File.ReadAllLines(filename)
+        If lines.Length.Equals(2) Or lines.Length.Equals(3) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     ' If Tera is not installed
     Private Sub pbxInstall_MouseEnter(sender As Object, e As EventArgs) Handles pbxInstall.MouseEnter
@@ -146,7 +156,11 @@ Public Class frmSecond
 
     Private Sub pbxClearAll()
         WC.Dispose()
-        pbxManageArchitecture()
+        If pbxManageArchitecture().Equals(False) Then
+            MsgBox("Can't Extract file", MsgBoxStyle.OkOnly, Me.Text)
+            Me.Close()
+            Exit Sub
+        End If
         pbxPlay.Visible = True
         pbxInstall.Visible = False
         pbxCancel.Visible = False
@@ -171,44 +185,33 @@ Public Class frmSecond
     End Sub
 
     ' When all parts are present in the same folder, we build them back
-    Private Sub pbxManageArchitecture()
+    Private Function pbxManageArchitecture() As Boolean
         lblProgression.Visible = True
+        Dim Path() As String = {
+                "",
+                ".\",
+                ".\Client\",
+                ".\Client\S1Game\CookedPC\",
+                ".\Client\S1Game\CookedPC\S1Game\",
+                ".\Client\S1Game\CookedPC\Art_Data\Maps\",
+                ".\Client\S1Game\CookedPC\Art_Data\Packages\",
+                ".\Client\S1Game\CookedPC\Art_Data\Packages\"
+                }
         For X = 1 To MAX_FILES
             Try
-                If X = 1 Then
-                    lblProgression.Text = "1/" + MAX_FILES.ToString
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\")
-                ElseIf X = 2 Then
-                    lblProgression.Text = "2/" + MAX_FILES.ToString
-                    My.Computer.FileSystem.CreateDirectory("Client")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\")
-                ElseIf X = 3 Then
-                    lblProgression.Text = "3/" + MAX_FILES.ToString
-                    My.Computer.FileSystem.CreateDirectory("Client\S1Game")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\")
-                ElseIf X = 4 Then
-                    lblProgression.Text = "4/" + MAX_FILES.ToString
-                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\")
-                ElseIf X = 5 Then
-                    lblProgression.Text = "5/" + MAX_FILES.ToString
-                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Maps\")
-                ElseIf X = 6 Then
-                    lblProgression.Text = "6/" + MAX_FILES.ToString
-                    My.Computer.FileSystem.CreateDirectory("Client\S1Game\CookedPC\Art_Data")
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
-                ElseIf X = 7 Then
-                    lblProgression.Text = "7/" + MAX_FILES.ToString
-                    ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", ".\Client\S1Game\CookedPC\Art_Data\Packages\")
-                End If
-                lblProgression.Text = "Installing " + X.ToString
+                lblProgression.Text = X.ToString + "/" + MAX_FILES.ToString
+                ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", Path(X.ToString))
             Catch ex As Exception
+                lblProgression.Visible = False
+                ProgressBar.Visible = False
                 MsgBox("Can't Extract file" & vbCrLf & ex.Message)
+                Return False
+                Exit Function
             End Try
-        Next X
+        Next
         lblProgression.Visible = False
-    End Sub
+        Return True
+    End Function
 
     ' Cancel download
 
