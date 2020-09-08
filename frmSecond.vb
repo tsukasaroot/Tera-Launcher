@@ -22,6 +22,7 @@ Public Class frmSecond
     End Enum
     Private LangStatus As Integer = 0
     Private txtLang = New String() {"", "uk", "fr", "de"}
+    Private SW
 
     ' Load everything
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -135,7 +136,8 @@ Public Class frmSecond
     ' Display the progression
     Private Sub pbxProgressBar(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs) Handles WC.DownloadProgressChanged
         ProgressBar.Value = e.ProgressPercentage
-        lblProgression.Text = e.ProgressPercentage.ToString + "% " + Progression.ToString + "/" + MAX_FILES.ToString
+        Dim dlProg = (e.BytesReceived / SW.ElapsedMilliseconds).ToString
+        lblProgression.Text = e.ProgressPercentage.ToString + "% " + Progression.ToString + "/" + MAX_FILES.ToString + " " + dlProg.Substring(0, dlProg.IndexOf(",")) + " KB/Sec"
     End Sub
 
     ' Do actions when download complete
@@ -173,6 +175,7 @@ Public Class frmSecond
     ' Manage the files download
     Private Sub pbxManageDownload()
         If Not File.Exists("part" + Progression.ToString + ".zip") Then
+            SW = Stopwatch.StartNew
             WC.DownloadFileAsync(New Uri("http://51.210.41.122/client/part" + Progression.ToString + ".zip"), "./part" + Progression.ToString + ".zip")
         ElseIf Not Progression.Equals(MAX_FILES) Then
             WC.CancelAsync()
