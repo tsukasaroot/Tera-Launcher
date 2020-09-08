@@ -13,7 +13,7 @@ Public Class frmSecond
     Public Language As Integer
     Private WithEvents WC As New WebClient
     Private Progression As Integer = 1
-    Private MAX_FILES As Integer = 3 ' 7
+    Private MAX_FILES As Integer = 7 ' 7
     Private Abort As AsyncCompletedEventArgs
     Private Enum Lang As Integer
         en = 1
@@ -193,13 +193,16 @@ Public Class frmSecond
                 ".\Client\",
                 ".\Client\S1Game\CookedPC\",
                 ".\Client\S1Game\CookedPC\S1Game\",
-                ".\Client\S1Game\CookedPC\Art_Data\Maps\",
+                ".\Client\S1Game\CookedPC\Art_Data\",
                 ".\Client\S1Game\CookedPC\Art_Data\Packages\",
                 ".\Client\S1Game\CookedPC\Art_Data\Packages\"
                 }
         For X = 1 To MAX_FILES
             Try
                 lblProgression.Text = X.ToString + "/" + MAX_FILES.ToString
+                If Not X.Equals(1) Then
+                    My.Computer.FileSystem.CreateDirectory(Path(X.ToString))
+                End If
                 ZipFile.ExtractToDirectory("part" + X.ToString + ".zip", Path(X.ToString))
             Catch ex As Exception
                 lblProgression.Visible = False
