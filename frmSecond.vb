@@ -21,7 +21,7 @@ Public Class frmSecond
         de = 3
     End Enum
     Private LangStatus As Integer = 0
-    Private txtLang = New String() {"uk", "fr", "de"}
+    Private txtLang = New String() {"", "uk", "fr", "de"}
 
     ' Load everything
     Private Sub frmSecond_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -57,7 +57,7 @@ Public Class frmSecond
             chkEN.CheckState = CheckState.Checked
         End If
 
-        If Not File.Exists("Client\Binaries\terauk.exe") And Not File.Exists("Client\Binaries\terafr.exe") Then
+        If Not File.Exists("Client\Binaries\terauk.exe") And Not File.Exists("Client\Binaries\terafr.exe") And Not File.Exists("Client\Binaries\terade.exe") Then
             pbxInstall.Visible = True
             lblProgression.Visible = True
         Else

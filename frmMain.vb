@@ -125,6 +125,7 @@ Public Class frmMain
                 PlayerPassword = reader.ReadLine()
                 If PlayerExist(PlayerName, PlayerPassword) Then
                     reader.Close()
+                    Remember = True
                     frmSecond.Show()
                     Me.Close()
                 Else
